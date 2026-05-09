@@ -2784,3 +2784,45 @@ section > .container {
   content: none !important;
   animation: none !important;
 }
+
+/* Guide usage note */
+.guide-note {
+  padding: 1.1rem 0;
+  background-color: var(--bg-navy);
+  color: var(--text-on-navy);
+}
+
+.guide-note p {
+  max-width: 62ch;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: rgba(245, 239, 235, 0.82);
+}
+
+.guide-note p::before {
+  content: 'подсказка';
+  display: inline-block;
+  margin-right: 0.6rem;
+  padding: 0.18rem 0.44rem;
+  border: 1px solid rgba(232, 220, 196, 0.35);
+  border-radius: 999px;
+  color: var(--accent-beige);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 767px) {
+  .guide-note {
+    padding: 0.95rem 0;
+  }
+
+  .guide-note p {
+    font-size: 0.82rem;
+  }
+
+  .guide-note p::before {
+    display: table;
+    margin: 0 0 0.45rem;
+  }
+}
