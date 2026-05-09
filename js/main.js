@@ -382,6 +382,57 @@ function renderHiking() {
 }
 
 /* ── Init ── */
+
+/* -- 13. Energy layer: small experimental interactions -- */
+function initEnergyLayer() {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.body.classList.add('page-ready');
+  if (reduced) return;
+
+  const revealTargets = qsa('main section, .section-callout, .carousel-wrap, .district-map-card, .cards-grid');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('energy-visible');
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -48px 0px' });
+  revealTargets.forEach(el => {
+    el.classList.add('energy-reveal');
+    revealObserver.observe(el);
+  });
+
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => entry.target.classList.toggle('is-inview', entry.isIntersecting));
+  }, { threshold: 0.65 });
+  qsa('.carousel-card, .card-b').forEach(card => cardObserver.observe(card));
+
+  let lastY = window.scrollY;
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const currentY = window.scrollY;
+      header?.classList.toggle('header-hidden', currentY > lastY && currentY > 220 && !mobileMenu?.classList.contains('open'));
+      qsa('.section-num').forEach(num => {
+        const rect = num.parentElement.getBoundingClientRect();
+        const shift = Math.max(-18, Math.min(18, rect.top * -0.035));
+        num.style.setProperty('--num-shift', `${shift}px`);
+      });
+      lastY = currentY;
+      ticking = false;
+    });
+  }, { passive: true });
+
+  qsa('.carousel-btn, .burger, .mobile-menu__close, .carousel-card__link, .card-b__link, .district-pin, .map-point[href]').forEach(el => {
+    el.addEventListener('pointerdown', () => {
+      el.classList.remove('tap-pop');
+      void el.offsetWidth;
+      el.classList.add('tap-pop');
+    });
+  });
+}
 document.addEventListener('DOMContentLoaded', () => {
   initHero1();
   initHero2();
@@ -396,6 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTrips();
   renderHiking();
   setupCarousel('nuances-carousel');
+  initEnergyLayer();
 
   qsa('.section-header').forEach(el => {
     el.classList.add('fade-in');
