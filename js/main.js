@@ -16,10 +16,20 @@ if (header) {
 /* ── 2. Scroll progress bar ── */
 const progressBar = qs('#scroll-progress');
 if (progressBar) {
-  window.addEventListener('scroll', () => {
+  const updateProgress = () => {
     const max = document.body.scrollHeight - window.innerHeight;
-    progressBar.style.width = (max > 0 ? Math.min(window.scrollY / max * 100, 100) : 0) + '%';
-  }, { passive: true });
+    const value = (max > 0 ? Math.min(window.scrollY / max * 100, 100) : 0) + '%';
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      progressBar.style.width = '';
+      progressBar.style.height = value;
+    } else {
+      progressBar.style.height = '';
+      progressBar.style.width = value;
+    }
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
 }
 
 /* ── 3. Burger menu ── */

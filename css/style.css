@@ -2635,3 +2635,83 @@ section > .container {
   45% { transform: translate(-50%, -50%) scale(0.97); }
   100% { transform: translate(-50%, -50%) scale(1); }
 }
+
+/* ==============================================
+   MOBILE MAP AND PROGRESS FIXES
+   ============================================== */
+@media (max-width: 767px) {
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: auto;
+    right: 0;
+    bottom: auto;
+    width: 3px !important;
+    height: 0;
+    min-height: 0;
+    background: linear-gradient(180deg, rgba(86, 124, 141, 0.35), rgba(86, 124, 141, 0.95));
+    box-shadow: 0 0 12px rgba(86, 124, 141, 0.22);
+    transition: height 0.08s linear;
+  }
+
+  .district-map-card,
+  .cards-grid,
+  .carousel {
+    box-shadow: none !important;
+    overscroll-behavior-x: contain;
+  }
+
+  .district-map-card::after,
+  .cards-grid::after,
+  .carousel::after {
+    content: none !important;
+  }
+
+  .district-pin:hover .district-tooltip,
+  .district-pin:focus-visible .district-tooltip {
+    transform: translate(-50%, 0);
+  }
+
+  .district-pin--north .district-tooltip {
+    left: auto;
+    right: calc(100% + 0.55rem);
+    bottom: auto;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  .district-pin--north:hover .district-tooltip,
+  .district-pin--north:focus-visible .district-tooltip {
+    transform: translate(0, -50%);
+  }
+
+  .district-pin--center .district-tooltip {
+    left: auto;
+    right: calc(100% + 0.55rem);
+    bottom: auto;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
+  .district-pin--center:hover .district-tooltip,
+  .district-pin--center:focus-visible .district-tooltip {
+    transform: translate(0, -50%);
+  }
+
+  .district-pin--fiolent .district-tooltip {
+    left: 50%;
+    bottom: calc(100% + 0.65rem);
+    top: auto;
+    transform: translate(-50%, 0);
+  }
+
+  .district-pin--fiolent:hover .district-tooltip,
+  .district-pin--fiolent:focus-visible .district-tooltip {
+    transform: translate(-50%, 0);
+  }
+
+  .district-tooltip {
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(47, 65, 86, 0.18);
+  }
+}
