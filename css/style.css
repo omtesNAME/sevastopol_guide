@@ -2826,3 +2826,30 @@ section > .container {
     margin: 0 0 0.45rem;
   }
 }
+/* Guide usage note outlined variant */
+.guide-note {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.guide-note p {
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(47, 65, 86, 0.14);
+  border-left: 3px solid var(--accent-teal);
+  border-radius: var(--r-md);
+  background-color: rgba(255, 255, 255, 0.28);
+  color: var(--text-secondary);
+}
+
+.guide-note p::before {
+  border-color: rgba(86, 124, 141, 0.28);
+  color: var(--accent-teal);
+}
+
+@media (max-width: 767px) {
+  .guide-note p {
+    padding: 0.9rem 0.95rem;
+  }
+}
