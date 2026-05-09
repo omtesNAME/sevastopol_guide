@@ -2778,3 +2778,9 @@ section > .container {
     z-index: 41;
   }
 }
+
+/* Stop animated outline on district labels */
+.district-pin::after {
+  content: none !important;
+  animation: none !important;
+}
